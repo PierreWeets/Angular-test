@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+		<style>
+			input.ng-invalid { /* // if an input element is invalid */
+				background-color: lightblue;
+			}
+		</style>
+	</head>
+<body>
+
+<!--// defines an AngularJS module 'MyApp' with controller id 'myCtrl' -->
+<!--// 'ng-init' inits the application variables 'myCol', 'myFirstName', ... & an object 'person' & an array 'points'-->
+ <div ng-app="myApp"  ng-controller="myCtrl"
+ ng-init="myCol='lightblue' ; myFirstName='Pierre'; quantity=2 ; cost=5; 
+ 		 person={firstName:'Paul',lastName:'Weets'}; points=[1,15,19,2,40]"> 
+
+<!-- // 2 manners to include a directive : content of each element = NOT displayed-->
+	<w3-test-directive>Directive 1 content</w3-test-directive>
+	<p w3-test-directive>Directive 2 content</p>
+	
+	<!-- // 'ng-bind' binds the content of the <p> element to the application variable 'myFirstName'. -->
+	<p>My first name is <span ng-bind="myFirstName"></span></p>
+
+	<p>My first expression: {{ 5 + 5 }}</p> 
+
+	<p>Total in dollar: {{ quantity * cost }}</p>
+
+	<p>Input something in the input box:</p>
+	<!--// ng-model = binds the value of HTML controls (input, select, textarea) to application data.-->
+	<p>Name : <input type="text" ng-model="name" placeholder="Enter name here"></p>
+	<!-- // 'ng-bind' binds the content of the <h1> element to the application variable name. -->
+    <h1>Name: <span ng-bind="name"></span></h1>
+	<h1>Name: {{name}}</h1>
+
+	<!--'firstName' setted in "./myCtrl.js" -->
+	First Name: <input type="text"  ng-model="firstName" ><br> <!--ng-model = binds the value of input element to application data 'firstName'-->
+	<!--'lastName' setted in "./myCtrl.js" -->
+	Last Name: <input type="text" ng-model="lastName"><br>  <!--ng-model = binds the value of input element to application data 'lastName'-->
+	<br>
+	<span ng-click="changeName('Jane')">0 test :{{firstName}}</span> <!-- 'ng-click' directive linked to fct  -->
+	<br>1 Full Name: {{firstName + " " + lastName}} <!-- both variables linked by directive 'ng-model' -->
+	<br>2 Full Name: <span ng-bind="firstName + ' ' + lastName"></span>  <!-- both variables linked by directive 'ng-model' -->
+	<br>3 Full Name: {{fullName()}}
+	<br>4 Full Name: <span ng-bind="fullName()"></span>
+	
+	<p>**** invalid content of an input element **** </p>
+	<br><input style="background-color:{{myCol}}" ng-model="myCol">
+
+
+	<p>The name is {{person.firstName + " " + person.lastName }}</p>
+	<p>The name is <span ng-bind="person.firstName + ' ' + person.lastName"></span></p>
+
+	<p>**** 3rd element in a array **** </p>
+	<p>The third result is {{ points[2] }}</p>
+	<p>The third result is <span ng-bind="points[2]"></span></p>
+	
+	<p>**** Looping with ng-repeat: **** </p>
+	<ul>
+		<li ng-repeat="x in points" >
+		  number : {{ x }}
+		</li>
+	</ul>
+
+	<p>**** Status for application data **** </p>
+	<form name="myForm" ng-init="myText = 'post@myweb.com'">
+
+		Email:
+		<input type="email" name="myAddress" ng-model="myText" required> <!-- valid if input = email & is filled -->
+		<p>Edit the e-mail address, and try to change the status.</p>
+		<p>Valid: {{myForm.myAddress.$valid}} (true = the value meets all criteria).</p> 
+		<p>Dirty: {{myForm.myAddress.$dirty}} (true = the value has been changed).</p>
+		<p>Touched: {{myForm.myAddress.$touched}} ( true = the field has been in focus).</p>
+		
+	</form>
+
+	<p>**** input validity **** </p>
+	<form name="myForm2">
+		Enter your name:
+		<input name="myName2" ng-model="myText2" required> <!-- valid if input is filled -->
+	</form>
+	
+</div>
+
+
+<!-- <script src="../controlers/app.js"></script> -->
+<script src="../controlers/myCtrl.js"></script>
+
+</body>
+</html>
